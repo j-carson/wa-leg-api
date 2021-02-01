@@ -1,6 +1,6 @@
 from typing import Dict
 from datetime import datetime
-import waleg
+from . import waleg
 
 def get_amendments_for_year(year:int,bill_number:int) -> Dict:
     """Auto-generated python interface to Washington State Legislature Web Services

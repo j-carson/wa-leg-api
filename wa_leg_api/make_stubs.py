@@ -122,7 +122,7 @@ def make_stub_files():
         fp = open(f"{service.lower()}.py", "w")
         fp.write("from typing import Dict\n")
         fp.write("from datetime import datetime\n")
-        fp.write("import waleg\n\n")
+        fp.write("from . import waleg\n\n")
     
         wsdl = requests.get(f"http://wslwebservices.leg.wa.gov/{service}Service.asmx?WSDL")
         legxml = BeautifulSoup(wsdl.content, "xml")

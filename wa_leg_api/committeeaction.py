@@ -1,6 +1,6 @@
 from typing import Dict
 from datetime import datetime
-import waleg
+from . import waleg
 
 def get_do_pass_by_committee(biennium:str=None,agency:str=None,committee_name:str=None) -> Dict:
     """Auto-generated python interface to Washington State Legislature Web Services

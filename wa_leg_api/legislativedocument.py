@@ -1,6 +1,6 @@
 from typing import Dict
 from datetime import datetime
-import waleg
+from . import waleg
 
 def get_documents_by_class(biennium:str=None,document_class:str=None,named_like:str=None) -> Dict:
     """Auto-generated python interface to Washington State Legislature Web Services

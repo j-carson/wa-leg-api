@@ -1,5 +1,5 @@
 import requests
-from typing import Dict, Any
+from typing import Dict, Any, Tuple
 from bs4 import BeautifulSoup, Tag
 
 WSLSITE = 'http://wslwebservices.leg.wa.gov'
@@ -48,12 +48,20 @@ def unpack_struct(struct: Tag) -> Dict:
 def unpack_thing(thing: Tag) -> Tuple[str, Any]:
     """Parse a chunk of the returned data
     
-    Parameters:
+    Parameters
+    ----------
+    thing: bs4.Tag
+        root node to unpack from
     
-    
+    Returns
+    -------
+    name: str 
+        Name of field unpacked
+    contents: Any
+        - str if it's a single item
+        - list if it's an array item
+        - dict if it's a more complex return type
     """
-    
-    
     name = thing.name
     
     if len(thing.contents) > 1:
