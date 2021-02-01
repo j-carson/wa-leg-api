@@ -68,12 +68,9 @@ def makearglists(args: Dict) -> Tuple[str, str]:
         args[key]["python_type"] = pytype
         args[key]["python_arg"] = snake_case(key)
 
-    optional = [key for key in args if args[key]["minOccurs"] == "0"]
-    
-    option_args = [f'{args[key]["python_arg"]}:{args[key]["python_type"]}=None' for key in optional]
-    non_option = [f'{args[key]["python_arg"]}:{args[key]["python_type"]}'
-                  for key in args if key not in optional]
-    arg_declare = ",".join(non_option + option_args)
+    arg_types = [f'{args[key]["python_arg"]}:{args[key]["python_type"]}' 
+                    for key in args]
+    arg_declare = ",".join(arg_types)
 
     all_args = ",".join([f"{key}={args[key]['python_arg']}" for key in args])
     arg_pass = f"argdict=dict({all_args})"

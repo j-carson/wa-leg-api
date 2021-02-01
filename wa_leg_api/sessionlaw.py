@@ -2,7 +2,7 @@ from typing import Dict
 from datetime import datetime
 from . import waleg
 
-def get_session_law_by_bill(bill_number:int,biennium:str=None) -> Dict:
+def get_session_law_by_bill(biennium:str,bill_number:int) -> Dict:
     """Auto-generated python interface to Washington State Legislature Web Services
     See http://wslwebservices.leg.wa.gov/lwsDetails.htm"""
     return waleg.call("SessionLaw", "GetSessionLawByBill", argdict=dict(biennium=biennium,billNumber=bill_number))
@@ -20,7 +20,7 @@ def get_chapter_numbers_by_year(year:int) -> Dict:
     return waleg.call("SessionLaw", "GetChapterNumbersByYear", argdict=dict(year=year))
 
 
-def get_session_law_by_bill_id(biennium:str=None,bill_id:str=None) -> Dict:
+def get_session_law_by_bill_id(biennium:str,bill_id:str) -> Dict:
     """Auto-generated python interface to Washington State Legislature Web Services
     See http://wslwebservices.leg.wa.gov/lwsDetails.htm"""
     return waleg.call("SessionLaw", "GetSessionLawByBillId", argdict=dict(biennium=biennium,billId=bill_id))
