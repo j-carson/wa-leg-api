@@ -68,12 +68,11 @@ def makearglists(args: Dict) -> Tuple[str, str]:
         args[key]["python_type"] = pytype
         args[key]["python_arg"] = snake_case(key)
 
-    arg_types = [f'{args[key]["python_arg"]}:{args[key]["python_type"]}' 
-                    for key in args]
-    arg_declare = ",".join(arg_types)
+    arg_types = [f'{args[key]["python_arg"]}: {args[key]["python_type"]}' for key in args]
+    arg_declare = ", ".join(arg_types)
 
-    all_args = ",".join([f"{key}={args[key]['python_arg']}" for key in args])
-    arg_pass = f"argdict=dict({all_args})"
+    all_args = ", ".join([f"{key}={args[key]['python_arg']}" for key in args])
+    arg_pass = f"argdict = dict({all_args})"
 
     return arg_declare, arg_pass
 
@@ -95,21 +94,19 @@ def make_python_code(servicename: str, functionname: str, args: Dict, fp):
     """
     arg_declare, arg_pass = makearglists(args)
 
-    fp.write("def ")
+    fp.write("\n\ndef ")
     fp.write(snake_case(functionname))
-    fp.write("(")
-    fp.write(arg_declare)
-    fp.write(") -> Dict:\n")
+    fp.write(f"({arg_declare}) -> Dict:\n")
     fp.write(
-        '    """Auto-generated python interface to Washington State Legislature Web Services\n'
+        '    """Auto-generated python interface to Washington Legislature Web Services\n'
     )
     fp.write('    See http://wslwebservices.leg.wa.gov/lwsDetails.htm"""\n')
+    fp.write(f"    {arg_pass}\n")
     fp.write(
-        f'    return waleg.call("{servicename}", "{functionname}", {arg_pass})\n'
+        f'    return waleg.call("{servicename}", "{functionname}", argdict=argdict)\n'
     )
-    fp.write("\n\n")
 
-    
+
 def make_stub_files():
     """Queries the definitions of each service and at wslwebservices.leg.wa.gov
     and creates python stub files
@@ -118,10 +115,12 @@ def make_stub_files():
 
         fp = open(f"{service.lower()}.py", "w")
         fp.write("from typing import Dict\n")
-        fp.write("from datetime import datetime\n")
-        fp.write("from . import waleg\n\n")
-    
-        wsdl = requests.get(f"http://wslwebservices.leg.wa.gov/{service}Service.asmx?WSDL")
+        fp.write("from datetime import datetime  # noqa\n")
+        fp.write("from . import waleg\n")
+
+        wsdl = requests.get(
+            f"http://wslwebservices.leg.wa.gov/{service}Service.asmx?WSDL"
+        )
         legxml = BeautifulSoup(wsdl.content, "xml")
         schema = legxml.find("s:schema")
 
@@ -137,6 +136,7 @@ def make_stub_files():
 
             make_python_code(service, name, arg_dict, fp)
         fp.close()
+
 
 if __name__ == "__main__":
     make_stub_files()
