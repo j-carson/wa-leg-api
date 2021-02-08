@@ -7,7 +7,7 @@ def test_committeeaction():
     agencies = ['House','Senate']
     committee_name = 'Transportation'
     bill_number = dict(House=1010,Senate=5010)
-    begin_date = datetime(2019,1,10)
+    begin_date = datetime(2019,1,24)
     end_date = datetime(2019,2,10)
 
     for agency in agencies:
@@ -32,3 +32,6 @@ def test_committeeaction():
         get_legislation_reported_out_of_committee(committee_name,agency,begin_date,end_date)
 
         get_legislation_scheduled_hearings_by_committee(biennium,agency,committee_name)
+
+if __name__ == "__main__":
+    test_committeeaction()

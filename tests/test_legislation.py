@@ -6,8 +6,8 @@ def test_legislation():
     """
     biennium = '2019-20'
     year = 2019
-    bill_number = 1010
-    bill_id = 'HB 1010'
+    bill_number = 1750
+    bill_id = 'HB 1750'
     begin_date = datetime(2019,1,1)
     end_date = datetime(2019,3,1)
     
