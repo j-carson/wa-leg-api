@@ -93,14 +93,12 @@ def make_python_code(servicename: str, functionname: str, args: Dict, fp):
         File to paste the stub into
     """
     arg_declare, arg_pass = makearglists(args)
+    helpful_url = f'http://wslwebservices.leg.wa.gov/{servicename.lower()}service.asmx?op={functionname}'
 
     fp.write("\n\ndef ")
     fp.write(snake_case(functionname))
     fp.write(f"({arg_declare}) -> Dict:\n")
-    fp.write(
-        '    """Auto-generated python interface to Washington Legislature Web Services\n'
-    )
-    fp.write('    See http://wslwebservices.leg.wa.gov/lwsDetails.htm"""\n')
+    fp.write(f'    """See: {helpful_url}"""\n')
     fp.write(f"    {arg_pass}\n")
     fp.write(
         f'    return waleg.call("{servicename}", "{functionname}", argdict=argdict)\n'

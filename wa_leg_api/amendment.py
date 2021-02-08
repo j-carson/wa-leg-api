@@ -4,7 +4,6 @@ from . import waleg
 
 
 def get_amendments(year: int) -> Dict:
-    """Auto-generated python interface to Washington Legislature Web Services
-    See http://wslwebservices.leg.wa.gov/lwsDetails.htm"""
+    """See: http://wslwebservices.leg.wa.gov/amendmentservice.asmx?op=GetAmendments"""
     argdict = dict(year=year)
     return waleg.call("Amendment", "GetAmendments", argdict=argdict)
