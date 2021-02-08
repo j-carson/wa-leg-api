@@ -10,6 +10,10 @@ cd wa-leg-api
 pip install . 
 ```
 
+Dependecies are:
+- [beautifulsoup4](https://pypi.org/project/beautifulsoup4/)
+- [requests](https://pypi.org/project/requests/)
+
 # Quick Start
 
 The stub functions are in modules named after each service in all lower case.
@@ -25,7 +29,7 @@ result = get_amendments(2021)
 All stubs return dicts.
 
 For more information about the Washington State Legislature web services 
-available visit [leg.wa.gov](http://wslwebservices.leg.wa.gov/)
+available visit [wslwebservices.leg.wa.gov](http://wslwebservices.leg.wa.gov/)
 
 ## Exceptions
 
@@ -54,6 +58,8 @@ Parameter name: Year
 {'year': 2100}
 ```
 
+Exceptions thrown directly by the requests package are not re-wrapped.
+
 # To dos
 
 The stub functions accept arguments of the correct type, but applying type 
@@ -65,3 +71,5 @@ is returned as a string.
 In addition to the required packages to use the library, the lxml package is 
 needed to regenerate the stubs. The function that makes the stubs is 
 called make_stubs.py 
+
+The existing tests can be run with pytest. 
