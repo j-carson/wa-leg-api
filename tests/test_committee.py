@@ -1,10 +1,10 @@
 from wa_leg_api.committee import *
 
+
 def test_committee():
-    """ Make sure that committee module functions run without crashing
-    """
-    biennium = '2019-20'
-    agencies = ['House', 'Senate']
+    """Make sure that committee module functions run without crashing"""
+    biennium = "2019-20"
+    agencies = ["House", "Senate"]
 
     get_committees(biennium)
     get_house_committees(biennium)
@@ -14,7 +14,5 @@ def test_committee():
     get_active_senate_committees()
 
     for agency in agencies:
-        get_committee_members(biennium, agency, 'Transportation')
-        get_active_committee_members(agency, 'Transportation')
-
-
+        get_committee_members(biennium, agency, "Transportation")
+        get_active_committee_members(agency, "Transportation")
