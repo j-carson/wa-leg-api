@@ -3,14 +3,19 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to Washington Legislature API (wa-leg-api)'s documentation!
-===================================================================
+Welcome to wa-leg-api's documentation!
+======================================
+
+wa-leg-api provides a python library interface to the 
+Washington State Legislature.
 
 .. toctree::
    :maxdepth: 2
-   :caption: Contents:
    
-   apidocs
+   QuickStart
+   userapis
+   exceptions
+   lowlevelapis
 
 
 Indices and tables

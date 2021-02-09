@@ -1,7 +1,7 @@
 import requests
 from typing import Dict, Any, Tuple
 from bs4 import BeautifulSoup, Tag
-from . import exceptions
+from wa_leg_api.exceptions import WaLegApiException
 
 WSLSITE = "http://wslwebservices.leg.wa.gov"
 
@@ -92,7 +92,7 @@ def call(service: str, function: str, argdict: dict) -> Dict:
     url = f"{WSLSITE}/{service}Service.asmx/{function}"
     response = requests.get(url, params=argdict)
     if not response.ok:
-        raise exceptions.WaLegApiException(
+        raise WaLegApiException(
             response.status_code, response.reason, response.text, argdict
         )
 

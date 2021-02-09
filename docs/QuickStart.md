@@ -1,8 +1,6 @@
-# wa-leg-api
+# Quick Start
 
-Python wrapper library around Washington State Legislature web services API
-
-# Installation
+## Installation
 
 ```bash
 git clone https://github.com/j-carson/wa-leg-api.git
@@ -14,7 +12,7 @@ Dependecies are:
 - [beautifulsoup4](https://pypi.org/project/beautifulsoup4/)
 - [requests](https://pypi.org/project/requests/)
 
-# Quick Start
+## Usage
 
 The stub functions are in modules named after each service in all lower case.
 The function names are the request type changed from CamelCase to snake_case.
@@ -60,13 +58,13 @@ Parameter name: Year
 
 Exceptions thrown directly by the requests package are not re-wrapped.
 
-# To dos
+## To dos
 
 The stub functions accept arguments of the correct type, but applying type 
 information for the return values is not yet implemented, so every field 
 is returned as a string.
 
-# Developers
+## Developers
 
 In addition to the required packages to use the library, the lxml package is 
 needed to regenerate the stubs. The function that makes the stubs is 

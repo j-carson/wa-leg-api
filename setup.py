@@ -45,6 +45,7 @@ setup(
     ],  # Optional
     extras_require={  # Optional
         "dev": ["lxml", "pytest"],
+        "docs": ["sphinx", "recommonmark"]
     },
     # List additional URLs that are relevant to your project as a dict.
     project_urls={"Source": "https://github.com/j-carson/wa-leg-api"},  # Optional

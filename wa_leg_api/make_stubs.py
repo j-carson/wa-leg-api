@@ -101,7 +101,7 @@ def make_python_code(servicename: str, functionname: str, args: Dict, fp):
     fp.write(f'    """See: {helpful_url}"""\n')
     fp.write(f"    {arg_pass}\n")
     fp.write(
-        f'    return waleg.call("{servicename}", "{functionname}", argdict=argdict)\n'
+        f'    return waleg.call("{servicename}", "{functionname}", argdict)\n'
     )
 
 
@@ -114,7 +114,7 @@ def make_stub_files():
         fp = open(f"{service.lower()}.py", "w")
         fp.write("from typing import Dict\n")
         fp.write("from datetime import datetime  # noqa\n")
-        fp.write("from . import waleg\n")
+        fp.write("from wa_leg_api import waleg\n")
 
         wsdl = requests.get(
             f"http://wslwebservices.leg.wa.gov/{service}Service.asmx?WSDL"
