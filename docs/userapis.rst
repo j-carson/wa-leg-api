@@ -15,6 +15,11 @@ for each interface provided by the Washington legislature's web services.
    The details of using each API are not documented
    here. See the link to the page on the legistature website
    with technical details and a test form.
+   
+.. warning::
+   This is alpha code. The returned dictionaries are subject to change in future
+   versions. In particular, I hope to cast returned values to their proper types and 
+   change the variable names to camel_case like the stub functions use.
 
 
 AmendmentService

@@ -62,14 +62,20 @@ Exceptions thrown directly by the requests package are not re-wrapped.
 
 The stub functions accept arguments of the correct type, but applying type 
 information for the return values is not yet implemented, so every field 
-is returned as a string.
+is returned as a string. 
+
+The input arg names are in python-standard camelcase, but the return keys 
+in the dictionary are not yet camel-cased. They are all lower case.
+
+The documentation should really include the dict structure returned, rather
+than pointing to the leg.wa.gov documentation. 
 
 ## Developers
 
+[The source is here.](https://https://github.com/j-carson/wa-leg-api/)
+
 In addition to the required packages to use the library, the lxml package is 
 needed to regenerate the stubs. The function that makes the stubs is 
-called make_stubs.py 
+called make_stubs.py  
 
-The existing tests can be run with pytest. 
-
-The documentation is built with sphinx.
+The tests are compatible with pytest.  The documentation is built with sphinx.
