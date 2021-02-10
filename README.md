@@ -57,3 +57,7 @@ Parameter name: Year
 ```
 
 Exceptions thrown directly by the requests package are not re-wrapped.
+
+# Full documentation 
+
+Please visit  [https://wa-leg-api.readthedocs.io](https://wa-leg-api.readthedocs.io)
