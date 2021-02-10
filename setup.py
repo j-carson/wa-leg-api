@@ -13,7 +13,7 @@ setup(
     description="A python API for the Washington State Legislature web services",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/pypa/sampleproject",  # Optional
+    url="https://github.com/j-carson/wa-leg-api",
     # Classifiers help users find your project by categorizing it.
     #
     # For a list of valid classifiers, see https://pypi.org/classifiers/
@@ -33,8 +33,11 @@ setup(
         "Programming Language :: Python :: 3",
         "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: 3.8",
+        "Operating System :: OS Independent"
     ],
-    keywords="washington-state,legislature,government-data",  # Optional
+    keywords=["washington-state",
+              "legislature",
+              "government-data"],  # Optional
     # When your source code is in a subdirectory under the project root, e.g.
     # `src/`, it is necessary to specify the `package_dir` argument.
     packages=["wa_leg_api"],
@@ -48,5 +51,6 @@ setup(
         "docs": ["sphinx", "recommonmark"]
     },
     # List additional URLs that are relevant to your project as a dict.
-    project_urls={"Source": "https://github.com/j-carson/wa-leg-api"},  # Optional
+    project_urls={"Source": "https://github.com/j-carson/wa-leg-api",
+                 "Documentation": "https://wa-leg-api.readthedocs.io"},  
 )

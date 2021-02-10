@@ -5,9 +5,7 @@ Python wrapper library around Washington State Legislature web services API
 # Installation
 
 ```bash
-git clone https://github.com/j-carson/wa-leg-api.git
-cd wa-leg-api
-pip install . 
+pip install wa-leg-api
 ```
 
 Dependecies are:
