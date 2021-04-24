@@ -9,7 +9,7 @@ long_description = (here / "README.md").read_text(encoding="utf-8")
 
 setup(
     name="wa_leg_api",  # Required
-    version="0.0.0",  # Required
+    version="0.1.0",  # Required
     description="A python API for the Washington State Legislature web services",
     long_description=long_description,
     long_description_content_type="text/markdown",
