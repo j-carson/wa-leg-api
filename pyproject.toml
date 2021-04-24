@@ -6,4 +6,4 @@ requires = [
 build-backend = "setuptools.build_meta"
 
 [tool.black]
-line-length = 90
+line-length = 110
