@@ -45,6 +45,7 @@ setup(
     install_requires=[
         "beautifulsoup4",
         "requests",
+        "dateutil"
     ],  # Optional
     extras_require={  # Optional
         "dev": ["lxml", "pytest"],
