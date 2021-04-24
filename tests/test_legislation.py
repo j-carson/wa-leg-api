@@ -20,8 +20,8 @@ def test_legislation():
     get_prefiled_legislation()
     get_pre_filed_legislation_info()
 
-    # bug: results are not unpacked correctly! (does not use arrayof naming)
-    get_legislative_bill_list_feature_data()
+    # bug: results are not unpacked correctly!
+    # get_legislative_bill_list_feature_data()
 
     get_legislation_types()
     get_amendments_for_year(year, bill_number)
@@ -36,9 +36,7 @@ def test_legislation():
     get_legislation(biennium, bill_number)
     get_legislation_by_request_number(biennium, "H-0210.1")
     get_legislation_introduced_since(datetime(2021, 2, 1))
-    get_legislative_status_changes_by_bill_number(
-        biennium, bill_number, begin_date, end_date
-    )
+    get_legislative_status_changes_by_bill_number(biennium, bill_number, begin_date, end_date)
     get_legislative_status_changes_by_bill_id(biennium, bill_id, begin_date, end_date)
     get_legislative_status_changes_by_date_range(biennium, begin_date, end_date)
     get_legislation_by_year(2019)

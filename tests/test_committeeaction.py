@@ -28,9 +28,7 @@ def test_committeeaction():
         get_committee_referrals_by_bill(biennium, bill_number[agency])
         get_committee_executive_actions_by_bill(biennium, bill_number[agency])
 
-        get_legislation_reported_out_of_committee(
-            committee_name, agency, begin_date, end_date
-        )
+        get_legislation_reported_out_of_committee(committee_name, agency, begin_date, end_date)
 
         get_legislation_scheduled_hearings_by_committee(biennium, agency, committee_name)
 
