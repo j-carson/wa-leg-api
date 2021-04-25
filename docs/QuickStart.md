@@ -11,6 +11,7 @@ pip install .
 Dependecies are:
 - [beautifulsoup4](https://pypi.org/project/beautifulsoup4/)
 - [requests](https://pypi.org/project/requests/)
+- [python-dateutil](https://pypi.org/project/python-dateutil/)
 
 ## Usage
 
@@ -60,15 +61,14 @@ Exceptions thrown directly by the requests package are not re-wrapped.
 
 ## To dos
 
-The stub functions accept arguments of the correct type, but applying type 
-information for the return values is not yet implemented, so every field 
-is returned as a string. 
-
 The input arg names are in python-standard camelcase, but the return keys 
-in the dictionary are not yet camel-cased. They are all lower case.
+in the dictionary are all lower case. Sorry for the inconsistency.
 
-The documentation should really include the dict structure returned, rather
-than pointing to the leg.wa.gov documentation. 
+The documentation should really include the dict structure returned by each 
+function, rather than pointing to the leg.wa.gov documentation. 
+
+The function GetLegislativeBillListFeatureData in the LegislationService
+is not yet implemented.
 
 ## Developers
 
