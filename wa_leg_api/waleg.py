@@ -90,6 +90,10 @@ def call(service: str, function: str, argdict: dict, keydict: dict) -> Dict:
         Function request inside service
     argdict: Dict
         Arguments to the request
+    keydict: Dict
+        Dictionary of returned keys and functions to cast the key
+        the correct type (if the correct type for key is something 
+        other than a string).
     """
     url = f"{WSLSITE}/{service}Service.asmx/{function}"
     response = requests.get(url, params=argdict)

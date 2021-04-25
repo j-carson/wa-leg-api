@@ -11,6 +11,7 @@ pip install wa-leg-api
 Dependecies are:
 - [beautifulsoup4](https://pypi.org/project/beautifulsoup4/)
 - [requests](https://pypi.org/project/requests/)
+- [python-dateutil](https://pypi.org/project/python-dateutil/)
 
 # Basic Usage
 
