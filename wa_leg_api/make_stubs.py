@@ -5,9 +5,9 @@ Generates python stubs from the Washington State Legislature Schema XML Response
 import requests
 from bs4 import BeautifulSoup, Tag
 import re
-from typing import Dict, Tuple, IO
+from typing import Dict, Tuple, IO, Any
 
-NOT_WORKING = "GetLegislativeBillListFeatureData"
+NOT_WORKING = [ "GetLegislativeBillListFeatureData" ] 
 
 SERVICES = [
     "Amendment",
@@ -43,7 +43,7 @@ def snake_case(identifier: str) -> str:
     return pythid
 
 
-def makearglists(args: Dict) -> Tuple[str, str]:
+def makearglists(args: Dict[str,Any]) -> Tuple[str, str]:
     """
     Returns the python code for argument declaration and argument passing to
     the function that does the work
@@ -74,12 +74,12 @@ def makearglists(args: Dict) -> Tuple[str, str]:
     arg_declare = ", ".join(arg_types)
 
     all_args = ", ".join([f"{key}={args[key]['python_arg']}" for key in args])
-    arg_pass = f"argdict = dict({all_args})"
+    arg_pass = f"argdict: Dict[str,Any] = dict({all_args})"
 
     return arg_declare, arg_pass
 
 
-def make_keydict(key_to_type: Dict) -> str:
+def make_keydict(key_to_type: Dict[str,Any]) -> str:
     """
     Returns the python code for declaring a dictionary that
     changes the returned strings to their correct types
@@ -103,10 +103,10 @@ def make_keydict(key_to_type: Dict) -> str:
             accum += f"'{key}':{val},\n"
 
     accum += "}"
-    return f"keydict = {accum}"
+    return f"keydict : Dict[str,Any] = {accum}"
 
 
-def make_python_code(servicename: str, functionname: str, args: Dict, key_to_type: Dict, fp: IO[str]) -> None:
+def make_python_code(servicename: str, functionname: str, args: Dict[str,Any], key_to_type: Dict[str,Any], fp: IO[str]) -> None:
     """
     Generate the stub for a single service request type
 
@@ -129,7 +129,7 @@ def make_python_code(servicename: str, functionname: str, args: Dict, key_to_typ
 
     fp.write("\n\ndef ")
     fp.write(snake_case(functionname))
-    fp.write(f"({arg_declare}) -> Dict:\n")
+    fp.write(f"({arg_declare}) -> Dict[str,Any]:\n")
     fp.write(f'    """See: {helpful_url}"""\n')
     fp.write(f"    {arg_pass}\n")
     fp.write(f"    {return_keys}\n")
@@ -143,7 +143,7 @@ def make_stub_files():
     for service in SERVICES:
 
         fp = open(f"{service.lower()}.py", "w")
-        fp.write("from typing import Dict\n")
+        fp.write("from typing import Dict,Any\n")
         fp.write("from datetime import datetime  # noqa\n")
         fp.write("from dateutil import parser  # noqa\n")
         fp.write("from wa_leg_api import waleg\n")

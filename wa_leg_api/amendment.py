@@ -1,13 +1,13 @@
-from typing import Dict
+from typing import Dict,Any
 from datetime import datetime  # noqa
 from dateutil import parser  # noqa
 from wa_leg_api import waleg
 
 
-def get_amendments(year: int) -> Dict:
+def get_amendments(year: int) -> Dict[str,Any]:
     """See: http://wslwebservices.leg.wa.gov/amendmentservice.asmx?op=GetAmendments"""
-    argdict = dict(year=year)
-    keydict = {'billnumber':int,
+    argdict: Dict[str,Any] = dict(year=year)
+    keydict : Dict[str,Any] = {'billnumber':int,
 'floornumber':int,
 'flooractiondate':parser.parse,
 'documentexists':lambda boolstr: (boolstr.lower() == "true"),
