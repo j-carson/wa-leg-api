@@ -79,3 +79,5 @@ needed to regenerate the stubs. The function that makes the stubs is
 called make_stubs.py  
 
 The tests are compatible with pytest.  The documentation is built with sphinx.
+There is an initial setup to check the source with mypy as well. TODO: need 
+to add library stubs.

@@ -1,13 +1,13 @@
-from typing import Dict
+from typing import Dict,Any
 from datetime import datetime  # noqa
 from dateutil import parser  # noqa
 from wa_leg_api import waleg
 
 
-def get_documents_by_class(biennium: str, document_class: str, named_like: str) -> Dict:
+def get_documents_by_class(biennium: str, document_class: str, named_like: str) -> Dict[str,Any]:
     """See: http://wslwebservices.leg.wa.gov/legislativedocumentservice.asmx?op=GetDocumentsByClass"""
-    argdict = dict(biennium=biennium, documentClass=document_class, namedLike=named_like)
-    keydict = {'htmcreatedate':parser.parse,
+    argdict: Dict[str,Any] = dict(biennium=biennium, documentClass=document_class, namedLike=named_like)
+    keydict : Dict[str,Any] = {'htmcreatedate':parser.parse,
 'htmlastmodifieddate':parser.parse,
 'pdfcreatedate':parser.parse,
 'pdflastmodifieddate':parser.parse,
@@ -15,10 +15,10 @@ def get_documents_by_class(biennium: str, document_class: str, named_like: str) 
     return waleg.call("LegislativeDocument", "GetDocumentsByClass", argdict, keydict)
 
 
-def get_documents(biennium: str, named_like: str) -> Dict:
+def get_documents(biennium: str, named_like: str) -> Dict[str,Any]:
     """See: http://wslwebservices.leg.wa.gov/legislativedocumentservice.asmx?op=GetDocuments"""
-    argdict = dict(biennium=biennium, namedLike=named_like)
-    keydict = {'htmcreatedate':parser.parse,
+    argdict: Dict[str,Any] = dict(biennium=biennium, namedLike=named_like)
+    keydict : Dict[str,Any] = {'htmcreatedate':parser.parse,
 'htmlastmodifieddate':parser.parse,
 'pdfcreatedate':parser.parse,
 'pdflastmodifieddate':parser.parse,
@@ -26,17 +26,17 @@ def get_documents(biennium: str, named_like: str) -> Dict:
     return waleg.call("LegislativeDocument", "GetDocuments", argdict, keydict)
 
 
-def get_document_classes(biennium: str) -> Dict:
+def get_document_classes(biennium: str) -> Dict[str,Any]:
     """See: http://wslwebservices.leg.wa.gov/legislativedocumentservice.asmx?op=GetDocumentClasses"""
-    argdict = dict(biennium=biennium)
-    keydict = {}
+    argdict: Dict[str,Any] = dict(biennium=biennium)
+    keydict : Dict[str,Any] = {}
     return waleg.call("LegislativeDocument", "GetDocumentClasses", argdict, keydict)
 
 
-def get_all_documents_by_class(biennium: str, document_class: str) -> Dict:
+def get_all_documents_by_class(biennium: str, document_class: str) -> Dict[str,Any]:
     """See: http://wslwebservices.leg.wa.gov/legislativedocumentservice.asmx?op=GetAllDocumentsByClass"""
-    argdict = dict(biennium=biennium, documentClass=document_class)
-    keydict = {'htmcreatedate':parser.parse,
+    argdict: Dict[str,Any] = dict(biennium=biennium, documentClass=document_class)
+    keydict : Dict[str,Any] = {'htmcreatedate':parser.parse,
 'htmlastmodifieddate':parser.parse,
 'pdfcreatedate':parser.parse,
 'pdflastmodifieddate':parser.parse,
