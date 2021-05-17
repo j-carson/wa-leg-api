@@ -1,11 +1,11 @@
-from typing import Dict
+from typing import Dict, Any
 
 
 class WaLegApiException(Exception):
     """Throws an exception with useful info for debugging"""
 
     def __init__(
-        self, http_error_num: int, http_error_text: str, http_text: str, args_sent: Dict
+        self, http_error_num: int, http_error_text: str, http_text: str, args_sent: Dict[str,Any]
     ):
         """
         Parameters

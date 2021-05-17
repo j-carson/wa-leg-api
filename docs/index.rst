@@ -13,6 +13,7 @@ Washington State Legislature.
    :maxdepth: 2
    
    QuickStart
+   WhatsNew
    userapis
    exceptions
    lowlevelapis

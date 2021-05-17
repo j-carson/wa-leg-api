@@ -1,12 +1,12 @@
 import requests
-from typing import Dict, Any, Tuple
-from bs4 import BeautifulSoup, Tag
+from typing import Dict, Any, Tuple, List
+from bs4 import BeautifulSoup, Tag, NavigableString
 from wa_leg_api.exceptions import WaLegApiException
 
 WSLSITE = "http://wslwebservices.leg.wa.gov"
 
 
-def unpack_array(array: Tag, keydict: Dict) -> list:
+def unpack_array(array: Tag, keydict: Dict[str,Any]) -> List[Any]:
     """Parse section of return where tag == arrayofsomething
     into a list
 
@@ -27,7 +27,7 @@ def unpack_array(array: Tag, keydict: Dict) -> list:
     return answer
 
 
-def unpack_struct(struct: Tag, keydict: Dict) -> Dict:
+def unpack_struct(struct: Tag, keydict: Dict[str,Any]) -> Dict[str,Any]:
     """Parse a tag with children, if tag is not arrayof....
 
     Parameters
@@ -37,7 +37,7 @@ def unpack_struct(struct: Tag, keydict: Dict) -> Dict:
 
     Returns
     -------
-    Dict
+    Dict[str,Any]
         The parsed section
     """
     answer = {}
@@ -49,7 +49,24 @@ def unpack_struct(struct: Tag, keydict: Dict) -> Dict:
     return answer
 
 
-def unpack_thing(thing: Tag, keydict: Dict) -> Tuple[str, Any]:
+def bs4_string_decode(thing: Any) -> Any:
+    """Parse a bs4 item to a str or bool type
+    """
+    if type(thing) is NavigableString:
+        string = thing.strip()
+    else:
+        string = str(thing)
+        
+    # Active flag returned by get_legislation isn't 
+    # in the schema and doesn't get parsed correctly
+    if string == "true":
+        return True
+    elif string == "false":
+        return False
+    else:
+        return string
+
+def unpack_thing(thing: Tag, keydict: Dict[str,Any]) -> Tuple[str, Any]:
     """Parse a chunk of the returned data
 
     Parameters
@@ -70,18 +87,16 @@ def unpack_thing(thing: Tag, keydict: Dict) -> Tuple[str, Any]:
 
     if len(thing.contents) > 1:
         if thing.name.startswith("arrayof"):
-            contents = unpack_array(thing, keydict)
+            return name, unpack_array(thing, keydict)
         else:
-            contents = unpack_struct(thing, keydict)
+            return name, unpack_struct(thing, keydict)
     else:
         contents = thing.string
-        typecaster = keydict.get(name, lambda x: x)
-        contents = typecaster(contents)
-
-    return name, contents
+        typecaster = keydict.get(name, bs4_string_decode)
+        return name, typecaster(contents)
 
 
-def call(service: str, function: str, argdict: dict, keydict: dict) -> Dict:
+def call(service: str, function: str, argdict: Dict[str,Any], keydict: Dict[str,Any]) -> Dict[str,Any]:
     """This is the backend to all the stubs
 
     service: str
@@ -106,6 +121,6 @@ def call(service: str, function: str, argdict: dict, keydict: dict) -> Dict:
 
 
 if __name__ == "__main__":
-    from sponsor import get_sponsors
+    from wa_leg_api.sponsor import get_sponsors
 
     result = get_sponsors("2019-20")

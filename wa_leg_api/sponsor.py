@@ -1,36 +1,36 @@
-from typing import Dict
+from typing import Dict,Any
 from datetime import datetime  # noqa
 from dateutil import parser  # noqa
 from wa_leg_api import waleg
 
 
-def get_sponsors(biennium: str) -> Dict:
+def get_sponsors(biennium: str) -> Dict[str,Any]:
     """See: http://wslwebservices.leg.wa.gov/sponsorservice.asmx?op=GetSponsors"""
-    argdict = dict(biennium=biennium)
-    keydict = {'district':int,
+    argdict: Dict[str,Any] = dict(biennium=biennium)
+    keydict : Dict[str,Any] = {'district':int,
 }
     return waleg.call("Sponsor", "GetSponsors", argdict, keydict)
 
 
-def get_house_sponsors(biennium: str) -> Dict:
+def get_house_sponsors(biennium: str) -> Dict[str,Any]:
     """See: http://wslwebservices.leg.wa.gov/sponsorservice.asmx?op=GetHouseSponsors"""
-    argdict = dict(biennium=biennium)
-    keydict = {'district':int,
+    argdict: Dict[str,Any] = dict(biennium=biennium)
+    keydict : Dict[str,Any] = {'district':int,
 }
     return waleg.call("Sponsor", "GetHouseSponsors", argdict, keydict)
 
 
-def get_senate_sponsors(biennium: str) -> Dict:
+def get_senate_sponsors(biennium: str) -> Dict[str,Any]:
     """See: http://wslwebservices.leg.wa.gov/sponsorservice.asmx?op=GetSenateSponsors"""
-    argdict = dict(biennium=biennium)
-    keydict = {'district':int,
+    argdict: Dict[str,Any] = dict(biennium=biennium)
+    keydict : Dict[str,Any] = {'district':int,
 }
     return waleg.call("Sponsor", "GetSenateSponsors", argdict, keydict)
 
 
-def get_requesters(biennium: str) -> Dict:
+def get_requesters(biennium: str) -> Dict[str,Any]:
     """See: http://wslwebservices.leg.wa.gov/sponsorservice.asmx?op=GetRequesters"""
-    argdict = dict(biennium=biennium)
-    keydict = {'id':int,
+    argdict: Dict[str,Any] = dict(biennium=biennium)
+    keydict : Dict[str,Any] = {'id':int,
 }
     return waleg.call("Sponsor", "GetRequesters", argdict, keydict)
