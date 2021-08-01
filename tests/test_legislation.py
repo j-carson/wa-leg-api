@@ -1,5 +1,6 @@
-from wa_leg_api.legislation import *
 from datetime import datetime
+
+from wa_leg_api.legislation import *
 
 
 def test_legislation():

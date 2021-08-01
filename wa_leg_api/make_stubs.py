@@ -2,12 +2,15 @@
 Generates python stubs from the Washington State Legislature Schema XML Responses
 """
 
+import re
+from typing import IO, Any, Dict, Tuple
+
 import requests
 from bs4 import BeautifulSoup, Tag
-import re
-from typing import Dict, Tuple, IO, Any
 
-NOT_WORKING = [ "GetLegislativeBillListFeatureData" ] 
+
+NOT_WORKING = ["GetLegislativeBillListFeatureData"]
+
 
 SERVICES = [
     "Amendment",
@@ -43,7 +46,7 @@ def snake_case(identifier: str) -> str:
     return pythid
 
 
-def makearglists(args: Dict[str,Any]) -> Tuple[str, str]:
+def makearglists(args: Dict[str, Any]) -> Tuple[str, str]:
     """
     Returns the python code for argument declaration and argument passing to
     the function that does the work
@@ -79,7 +82,7 @@ def makearglists(args: Dict[str,Any]) -> Tuple[str, str]:
     return arg_declare, arg_pass
 
 
-def make_keydict(key_to_type: Dict[str,Any]) -> str:
+def make_keydict(key_to_type: Dict[str, Any]) -> str:
     """
     Returns the python code for declaring a dictionary that
     changes the returned strings to their correct types
@@ -106,7 +109,9 @@ def make_keydict(key_to_type: Dict[str,Any]) -> str:
     return f"keydict : Dict[str,Any] = {accum}"
 
 
-def make_python_code(servicename: str, functionname: str, args: Dict[str,Any], key_to_type: Dict[str,Any], fp: IO[str]) -> None:
+def make_python_code(
+    servicename: str, functionname: str, args: Dict[str, Any], key_to_type: Dict[str, Any], fp: IO[str]
+) -> None:
     """
     Generate the stub for a single service request type
 

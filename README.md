@@ -27,7 +27,7 @@ result = get_amendments(2021)
 
 All stubs return dicts.
 
-For more information about the Washington State Legislature web services 
+For more information about the Washington State Legislature web services
 available visit [wslwebservices.leg.wa.gov](http://wslwebservices.leg.wa.gov/)
 
 ## Exceptions
@@ -40,7 +40,7 @@ try:
 except WaLegApiException as e:
     print(e.http_error)      # HTTP Error code
     print(e.http_error_text) # HTTP Error code as text
-    print(e.http_text)       # Additional text returned from leg.wa.gov 
+    print(e.http_text)       # Additional text returned from leg.wa.gov
     print(e.args_sent)       # Record of arguments sent with request
 ```
 
@@ -59,6 +59,6 @@ Parameter name: Year
 
 Exceptions thrown directly by the requests package are not re-wrapped.
 
-# Full documentation 
+# Full documentation
 
 Please visit  [https://wa-leg-api.readthedocs.io](https://wa-leg-api.readthedocs.io)

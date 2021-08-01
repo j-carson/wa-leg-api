@@ -1,5 +1,6 @@
-from wa_leg_api.committeeaction import *
 from datetime import datetime
+
+from wa_leg_api.committeeaction import *
 
 
 def test_committeeaction():

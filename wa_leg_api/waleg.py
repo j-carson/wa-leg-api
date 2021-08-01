@@ -1,12 +1,15 @@
+from typing import Any, Dict, List, Tuple
+
 import requests
-from typing import Dict, Any, Tuple, List
-from bs4 import BeautifulSoup, Tag, NavigableString
+
+from bs4 import BeautifulSoup, NavigableString, Tag
+
 from wa_leg_api.exceptions import WaLegApiException
 
 WSLSITE = "http://wslwebservices.leg.wa.gov"
 
 
-def unpack_array(array: Tag, keydict: Dict[str,Any]) -> List[Any]:
+def unpack_array(array: Tag, keydict: Dict[str, Any]) -> List[Any]:
     """Parse section of return where tag == arrayofsomething
     into a list
 
@@ -26,8 +29,8 @@ def unpack_array(array: Tag, keydict: Dict[str,Any]) -> List[Any]:
         answer.append(unpack_thing(item, keydict)[1])
     return answer
 
-
-def unpack_struct(struct: Tag, keydict: Dict[str,Any]) -> Dict[str,Any]:
+  
+def unpack_struct(struct: Tag, keydict: Dict[str, Any]) -> Dict[str, Any]:
     """Parse a tag with children, if tag is not arrayof....
 
     Parameters
@@ -50,14 +53,13 @@ def unpack_struct(struct: Tag, keydict: Dict[str,Any]) -> Dict[str,Any]:
 
 
 def bs4_string_decode(thing: Any) -> Any:
-    """Parse a bs4 item to a str or bool type
-    """
+    """Parse a bs4 item to a str or bool type"""
     if type(thing) is NavigableString:
         string = thing.strip()
     else:
         string = str(thing)
-        
-    # Active flag returned by get_legislation isn't 
+
+    # Active flag returned by get_legislation isn't
     # in the schema and doesn't get parsed correctly
     if string == "true":
         return True
@@ -66,7 +68,8 @@ def bs4_string_decode(thing: Any) -> Any:
     else:
         return string
 
-def unpack_thing(thing: Tag, keydict: Dict[str,Any]) -> Tuple[str, Any]:
+
+def unpack_thing(thing: Tag, keydict: Dict[str, Any]) -> Tuple[str, Any]:
     """Parse a chunk of the returned data
 
     Parameters
@@ -96,7 +99,7 @@ def unpack_thing(thing: Tag, keydict: Dict[str,Any]) -> Tuple[str, Any]:
         return name, typecaster(contents)
 
 
-def call(service: str, function: str, argdict: Dict[str,Any], keydict: Dict[str,Any]) -> Dict[str,Any]:
+def call(service: str, function: str, argdict: Dict[str, Any], keydict: Dict[str, Any]) -> Dict[str, Any]:
     """This is the backend to all the stubs
 
     service: str
@@ -107,7 +110,8 @@ def call(service: str, function: str, argdict: Dict[str,Any], keydict: Dict[str,
         Arguments to the request
     keydict: Dict
         Dictionary of returned keys and functions to cast the key
-        the correct type (if the correct type for key is something 
+        the correct type (if the correct type for key is something
+
         other than a string).
     """
     url = f"{WSLSITE}/{service}Service.asmx/{function}"

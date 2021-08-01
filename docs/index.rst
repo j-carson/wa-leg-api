@@ -6,12 +6,12 @@
 Welcome to wa-leg-api's documentation!
 ======================================
 
-wa-leg-api provides a python library interface to the 
+wa-leg-api provides a python library interface to the
 Washington State Legislature.
 
 .. toctree::
    :maxdepth: 2
-   
+
    QuickStart
    WhatsNew
    userapis

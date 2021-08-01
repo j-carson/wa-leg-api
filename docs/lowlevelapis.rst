@@ -2,7 +2,7 @@
 Low-level Functions
 ===================
 
-The functions below are likely only of interest if you want to 
+The functions below are likely only of interest if you want to
 develop new features for this library.
 
 make_stubs
