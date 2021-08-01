@@ -5,7 +5,7 @@
 ```bash
 git clone https://github.com/j-carson/wa-leg-api.git
 cd wa-leg-api
-pip install . 
+pip install .
 ```
 
 Dependecies are:
@@ -27,7 +27,7 @@ result = get_amendments(2021)
 
 All stubs return dicts.
 
-For more information about the Washington State Legislature web services 
+For more information about the Washington State Legislature web services
 available visit [wslwebservices.leg.wa.gov](http://wslwebservices.leg.wa.gov/)
 
 ## Exceptions
@@ -40,7 +40,7 @@ try:
 except WaLegApiException as e:
     print(e.http_error)      # HTTP Error code
     print(e.http_error_text) # HTTP Error code as text
-    print(e.http_text)       # Additional text returned from leg.wa.gov 
+    print(e.http_text)       # Additional text returned from leg.wa.gov
     print(e.args_sent)       # Record of arguments sent with request
 ```
 
@@ -61,11 +61,11 @@ Exceptions thrown directly by the requests package are not re-wrapped.
 
 ## To dos
 
-The input arg names are in python-standard camelcase, but the return keys 
+The input arg names are in python-standard camelcase, but the return keys
 in the dictionary are all lower case. Sorry for the inconsistency.
 
-The documentation should really include the dict structure returned by each 
-function, rather than pointing to the leg.wa.gov documentation. 
+The documentation should really include the dict structure returned by each
+function, rather than pointing to the leg.wa.gov documentation.
 
 The function GetLegislativeBillListFeatureData in the LegislationService
 is not yet implemented.
@@ -74,10 +74,10 @@ is not yet implemented.
 
 [The source is here.](https://https://github.com/j-carson/wa-leg-api/)
 
-In addition to the required packages to use the library, the lxml package is 
-needed to regenerate the stubs. The function that makes the stubs is 
-called make_stubs.py  
+In addition to the required packages to use the library, the lxml package is
+needed to regenerate the stubs. The function that makes the stubs is
+called make_stubs.py
 
 The tests are compatible with pytest.  The documentation is built with sphinx.
-There is an initial setup to check the source with mypy as well. TODO: need 
+There is an initial setup to check the source with mypy as well. TODO: need
 to add library stubs.

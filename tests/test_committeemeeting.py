@@ -1,5 +1,6 @@
-from wa_leg_api.committeemeeting import *
 from datetime import datetime
+
+from wa_leg_api.committeemeeting import *
 
 
 def test_committeemeeting():
