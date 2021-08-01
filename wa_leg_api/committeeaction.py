@@ -5,6 +5,7 @@ from dateutil import parser  # noqa
 
 from wa_leg_api import waleg
 
+
 def get_do_pass_by_committee(biennium: str, agency: str, committee_name: str) -> Dict[str, Any]:
     """See: http://wslwebservices.leg.wa.gov/committeeactionservice.asmx?op=GetDoPassByCommittee"""
     argdict: Dict[str, Any] = dict(biennium=biennium, agency=agency, committeeName=committee_name)

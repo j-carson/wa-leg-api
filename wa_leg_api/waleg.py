@@ -1,7 +1,6 @@
 from typing import Any, Dict, List, Tuple
 
 import requests
-
 from bs4 import BeautifulSoup, NavigableString, Tag
 
 from wa_leg_api.exceptions import WaLegApiException
@@ -29,7 +28,7 @@ def unpack_array(array: Tag, keydict: Dict[str, Any]) -> List[Any]:
         answer.append(unpack_thing(item, keydict)[1])
     return answer
 
-  
+
 def unpack_struct(struct: Tag, keydict: Dict[str, Any]) -> Dict[str, Any]:
     """Parse a tag with children, if tag is not arrayof....
 
