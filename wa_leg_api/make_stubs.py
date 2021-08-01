@@ -8,7 +8,9 @@ from typing import IO, Any, Dict, Tuple
 import requests
 from bs4 import BeautifulSoup, Tag
 
+
 NOT_WORKING = ["GetLegislativeBillListFeatureData"]
+
 
 SERVICES = [
     "Amendment",

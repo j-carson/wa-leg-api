@@ -1,6 +1,7 @@
 from typing import Any, Dict, List, Tuple
 
 import requests
+
 from bs4 import BeautifulSoup, NavigableString, Tag
 
 from wa_leg_api.exceptions import WaLegApiException
@@ -28,7 +29,7 @@ def unpack_array(array: Tag, keydict: Dict[str, Any]) -> List[Any]:
         answer.append(unpack_thing(item, keydict)[1])
     return answer
 
-
+  
 def unpack_struct(struct: Tag, keydict: Dict[str, Any]) -> Dict[str, Any]:
     """Parse a tag with children, if tag is not arrayof....
 
@@ -110,6 +111,7 @@ def call(service: str, function: str, argdict: Dict[str, Any], keydict: Dict[str
     keydict: Dict
         Dictionary of returned keys and functions to cast the key
         the correct type (if the correct type for key is something
+
         other than a string).
     """
     url = f"{WSLSITE}/{service}Service.asmx/{function}"

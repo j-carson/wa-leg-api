@@ -5,7 +5,6 @@ from dateutil import parser  # noqa
 
 from wa_leg_api import waleg
 
-
 def get_committees(biennium: str) -> Dict[str, Any]:
     """See: http://wslwebservices.leg.wa.gov/committeeservice.asmx?op=GetCommittees"""
     argdict: Dict[str, Any] = dict(biennium=biennium)
