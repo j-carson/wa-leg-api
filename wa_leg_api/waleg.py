@@ -88,7 +88,8 @@ def unpack_thing(thing: Tag, keydict: Dict[str, Any]) -> Tuple[str, Any]:
     name = thing.name
 
     if len(thing.contents) > 1:
-        if thing.name.startswith("arrayof"):
+        # "votes" returned by legislation.get_roll_calls is also an array
+        if (thing.name.startswith("arrayof")) or (thing.name == "votes"):
             return name, unpack_array(thing, keydict)
         else:
             return name, unpack_struct(thing, keydict)
