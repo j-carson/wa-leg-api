@@ -1,5 +1,10 @@
 # What's New
 
+## 0.3.0
+
+* Thanks to [ryansloan](https://github.com/ryansloan) for catching a bug 
+legislation.get_roll_calls now unpacks the returned votes correctly.
+
 ## 0.2.0
 
 * Created a release history page in the docs dir
