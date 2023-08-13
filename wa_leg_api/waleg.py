@@ -4,8 +4,24 @@ import requests
 from bs4 import BeautifulSoup, NavigableString, Tag
 
 from wa_leg_api.exceptions import WaLegApiException
+from wa_leg_api.make_stubs import snake_case
 
 WSLSITE = "http://wslwebservices.leg.wa.gov"
+
+
+def detect_array(maybe_array: Tag) -> bool:
+    """An array is a tag where all the child tags have the same name"""
+
+    first_subtag = None
+    for count, item in enumerate(maybe_array):
+        if not isinstance(item, Tag):
+            continue
+        if first_subtag:
+            if item.name != first_subtag:
+                return False
+        else:
+            first_subtag = item.name
+    return True
 
 
 def unpack_array(array: Tag, keydict: Dict[str, Any]) -> List[Any]:
@@ -23,7 +39,7 @@ def unpack_array(array: Tag, keydict: Dict[str, Any]) -> List[Any]:
     answer = []
 
     for item in array:
-        if type(item) is not Tag:
+        if not isinstance(item, Tag):
             continue
         answer.append(unpack_thing(item, keydict)[1])
     return answer
@@ -44,7 +60,7 @@ def unpack_struct(struct: Tag, keydict: Dict[str, Any]) -> Dict[str, Any]:
     """
     answer = {}
     for item in struct:
-        if type(item) is not Tag:
+        if not isinstance(item, Tag):
             continue
         name, content = unpack_thing(item, keydict)
         answer[name] = content
@@ -85,16 +101,19 @@ def unpack_thing(thing: Tag, keydict: Dict[str, Any]) -> Tuple[str, Any]:
         - list if it's an array item
         - dict if it's a more complex return type
     """
-    name = thing.name
+    name = snake_case(thing.name)
 
     if len(thing.contents) > 1:
         # "votes" returned by legislation.get_roll_calls is also an array
-        if (thing.name.startswith("arrayof")) or (thing.name == "votes"):
+        if detect_array(thing):
             return name, unpack_array(thing, keydict)
         else:
             return name, unpack_struct(thing, keydict)
     else:
         contents = thing.string
+        if contents is None:
+            return name, contents
+
         typecaster = keydict.get(name, bs4_string_decode)
         return name, typecaster(contents)
 
@@ -119,7 +138,7 @@ def call(service: str, function: str, argdict: Dict[str, Any], keydict: Dict[str
     if not response.ok:
         raise WaLegApiException(response.status_code, response.reason, response.text, argdict)
 
-    body = BeautifulSoup(response.text, "html.parser")
+    body = BeautifulSoup(response.text, "xml")
     answer = unpack_struct(body, keydict)
     return answer
 

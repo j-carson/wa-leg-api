@@ -15,10 +15,7 @@ stubs: venv_check
 	pre-commit run --all-files || pre-commit run --all-files
 
 test: venv_check
-	pip install -e .[dev]
-	pre-commit run --all-files
-	pytest tests
-
+	nox -s test
 
 docs: venv_check
 	pip install -e .[docs]

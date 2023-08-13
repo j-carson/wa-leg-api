@@ -45,6 +45,18 @@ def snake_case(identifier: str) -> str:
     return pythid
 
 
+def get_documentation(func: str, xml_defs: BeautifulSoup) -> str:
+    """Look in the given wsdl XML contents for the documentation, and if found,
+    return it. Otherwise return empty string"""
+
+    for operation in xml_defs.findAll("wsdl:operation"):
+        if operation.attrs["name"] == func:
+            for docstring in operation.findAll("wsdl:documentation"):
+                if docstring.text:
+                    return docstring.text.replace("<BR>", "\n")
+    return ""
+
+
 def makearglists(args: Dict[str, Any]) -> Tuple[str, str]:
     """
     Returns the python code for argument declaration and argument passing to
@@ -109,7 +121,12 @@ def make_keydict(key_to_type: Dict[str, Any]) -> str:
 
 
 def make_python_code(
-    servicename: str, functionname: str, args: Dict[str, Any], key_to_type: Dict[str, Any], fp: IO[str]
+    servicename: str,
+    functionname: str,
+    docs: str,
+    args: Dict[str, Any],
+    key_to_type: Dict[str, Any],
+    fp: IO[str],
 ) -> None:
     """
     Generate the stub for a single service request type
@@ -120,6 +137,8 @@ def make_python_code(
         Which service
     functionname: str
         Which request type
+    docs: str
+        Docstring
     args: dict
         Argument info returned by Wash Leg XML service
     key_to_type: dict
@@ -134,7 +153,7 @@ def make_python_code(
     fp.write("\n\ndef ")
     fp.write(snake_case(functionname))
     fp.write(f"({arg_declare}) -> Dict[str,Any]:\n")
-    fp.write(f'    """See: {helpful_url}"""\n')
+    fp.write(f'    """{docs}\n\nSee: {helpful_url}"""\n')
     fp.write(f"    {arg_pass}\n")
     fp.write(f"    {return_keys}\n")
     fp.write(f'    return waleg.call("{servicename}", "{functionname}", argdict, keydict)\n')
@@ -145,7 +164,6 @@ def make_stub_files():
     and creates python stub files
     """
     for service in SERVICES:
-
         fp = open(f"{service.lower()}.py", "w")
         fp.write("from typing import Dict,Any\n")
         fp.write("from datetime import datetime  # noqa\n")
@@ -185,6 +203,7 @@ def make_stub_files():
                 continue
 
             response_name = name + "Response"
+            docs = get_documentation(name, legxml)
 
             if any((not name.startswith("Get"), name.endswith("Response"))):
                 continue
@@ -216,20 +235,20 @@ def make_stub_files():
                                 update_keydict(el, acc_dict)
                         else:
                             for item in nested_info:
-                                if type(item) is not Tag:
+                                if not isinstance(item, Tag):
                                     continue
                                 item_type = item.attrs["base"]
-                                acc_dict[nested_info.attrs["name"].lower()] = type_replace[item_type]
+                                acc_dict[snake_case(nested_info.attrs["name"])] = type_replace[item_type]
                                 break
                 else:
-                    acc_dict[attrs["name"].lower()] = type_replace[attrs["type"]]
+                    acc_dict[snake_case(attrs["name"])] = type_replace[attrs["type"]]
 
             key_to_type = {}
             returnvals = response_info.findAll("s:element")
             for val in returnvals:
                 update_keydict(val, key_to_type)
 
-            make_python_code(service, name, arg_dict, key_to_type, fp)
+            make_python_code(service, name, docs, arg_dict, key_to_type, fp)
         fp.close()
 
 
