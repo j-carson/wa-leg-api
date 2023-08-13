@@ -61,9 +61,6 @@ Exceptions thrown directly by the requests package are not re-wrapped.
 
 ## To dos
 
-The input arg names are in python-standard camelcase, but the return keys
-in the dictionary are all lower case. Sorry for the inconsistency.
-
 The documentation should really include the dict structure returned by each
 function, rather than pointing to the leg.wa.gov documentation.
 
