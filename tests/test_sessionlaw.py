@@ -2,7 +2,6 @@ from wa_leg_api.sessionlaw import *
 
 
 def test_sessionlaw():
-
     biennium = "2019-20"
     bill_number = 1011
     bill_id = "HB 1011"

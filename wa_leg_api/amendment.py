@@ -7,12 +7,15 @@ from wa_leg_api import waleg
 
 
 def get_amendments(year: int) -> Dict[str, Any]:
-    """See: http://wslwebservices.leg.wa.gov/amendmentservice.asmx?op=GetAmendments"""
+    """Returns list of amendments submitted to the rostrum during the year.
+    Exception thrown for invalid year.
+
+    See: http://wslwebservices.leg.wa.gov/amendmentservice.asmx?op=GetAmendments"""
     argdict: Dict[str, Any] = dict(year=year)
     keydict: Dict[str, Any] = {
-        "billnumber": int,
-        "floornumber": int,
-        "flooractiondate": parser.parse,
-        "documentexists": lambda boolstr: (boolstr.lower() == "true"),
+        "bill_number": int,
+        "floor_number": int,
+        "floor_action_date": parser.parse,
+        "document_exists": lambda boolstr: (boolstr.lower() == "true"),
     }
     return waleg.call("Amendment", "GetAmendments", argdict, keydict)
